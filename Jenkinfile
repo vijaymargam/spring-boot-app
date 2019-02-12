@@ -12,7 +12,10 @@ pipeline {
     }
     stage('Build') {
       steps {
-       sh 'mvn -B -DskipTests clean package'
+      withSonarQubeEnv('sonarqube') {
+    sh 'mvn clean test sonar:sonar package'
+}
+      // sh 'mvn -B -DskipTests clean package'
              }
     }
     stage('CreateInstance') {
