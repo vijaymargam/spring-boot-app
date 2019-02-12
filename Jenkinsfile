@@ -25,10 +25,7 @@ pipeline {
     stage('DeployArtifact') {
       steps {
         node('Ansible'){
-          withMaven(maven: 'maven') {
-          sh 'mvn clean package -DskipTests'
-          }
-       ansiblePlaybook become: true, colorized: true, credentialsId: 'windows', disableHostKeyChecking: true, inventory: '/tmp/hosts_stable', playbook: 'deployArtifact.yaml'
+          ansiblePlaybook become: true, colorized: true, credentialsId: 'windows', disableHostKeyChecking: true, inventory: '/tmp/hosts_stable', playbook: 'deployArtifact.yaml'
         
         }}
    }
