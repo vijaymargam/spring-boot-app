@@ -4,7 +4,7 @@ stages{
     stage('CreateInstance') {
       steps {
         node('Ansible'){
-      //   checkout scm
+         checkout scm
          ansiblePlaybook playbook: '$WORKSPACE/createInstance.yaml'
       }
       }}
