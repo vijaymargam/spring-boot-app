@@ -18,6 +18,7 @@
          wait: true
          region: "{{ region }}"
          vpc_subnet_id: subnet-0849f35c27cc4e9eb
+         #instance_profile_name: s3-mybucket-role
          assign_public_ip: yes
       register: ec2
     
