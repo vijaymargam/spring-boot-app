@@ -1,3 +1,4 @@
+Auto_Scaling with Ansibel
 ---
   - name: Provision an EC2 Instance with autoscaling groups
     hosts: ansible-server
@@ -9,7 +10,12 @@
       image: ami-0ad42f4f66f6c1cc9
       region: ap-south-1
     tasks:
-    - name: Launch instance
+    - name: delete old launch conf
+      ec2_lc:
+        name: new_lc
+        state: absent
+
+    - name: create Launch conf
       ec2_lc:
         name: new_lc
         key_name: "{{ keypair }}"
