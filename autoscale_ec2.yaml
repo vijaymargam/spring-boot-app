@@ -1,0 +1,38 @@
+Auto_Scaling with Ansibel
+---
+  - name: Provision an EC2 Instance with autoscaling groups
+    hosts: ansible-server
+    connection: local
+    gather_facts: False
+    vars:
+      keypair: windows
+      instance_type: t2.micro
+      image: ami-0ad42f4f66f6c1cc9
+      region: ap-south-1
+    tasks:
+    - name: Launch instance
+      ec2_lc:
+        name: new_lc
+        key_name: "{{ keypair }}"
+        security_groups: sg-07b10c50727c70c11
+        instance_type: "{{ instance_type }}"
+        image_id: "{{ image }}"
+        user_data: "{{ lookup('file','user_data.sh')}}"
+#        wait: true
+#        instace_tags:
+#           Name: dev
+        region: "{{ region }}"
+        vpc_id: vpc-09b9f5af71b66fab6
+        assign_public_ip: yes
+      register: ec2
+    - ec2_asg:
+        name: myasg
+        launch_config_name: new_lc
+        health_check_period: 60
+        health_check_type: ELB
+        replace_all_instances: yes
+        min_size: 2
+        max_size: 5
+        desired_capacity: 3
+        region: ap-south-1
+        vpc_zone_identifier: [ 'subnet-083b26d10795b687e', 'subnet-0f8eb689ed70131f5' ]
