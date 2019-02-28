@@ -9,16 +9,9 @@
       image: ami-0ad42f4f66f6c1cc9
       region: ap-south-1
     tasks:
-    - name: delete old launch conf
-      ec2_lc:
-        name: new_lc
-        region: "{{ region }}"
-        vpc_id: vpc-0077079c326c44422
-        state: absent
-
     - name: create Launch conf
       ec2_lc:
-        name: new_lc
+        name: new_lc2
         key_name: "{{ keypair }}"
         security_groups: sg-072e1fdf972bb45e4
         instance_type: "{{ instance_type }}"
@@ -32,7 +25,7 @@
       register: ec2
     - ec2_asg:
         name: myasg
-        launch_config_name: new_lc
+        launch_config_name: new_lc2
         health_check_period: 60
         health_check_type: ELB
         wait_for_instances: yes
