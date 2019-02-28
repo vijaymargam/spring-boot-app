@@ -1,20 +1,12 @@
 pipeline {
   agent any
 stages{
-    stage('CreateInstance') {
+    stage('Deploy_Artifact_to_autoscale_group') {
       steps {
         node('Ansible'){
          checkout scm
-         ansiblePlaybook playbook: '$WORKSPACE/createInstance.yaml'
+         ansiblePlaybook playbook: '$WORKSPACE/autoscale_ec2.yaml'
       }
       }}
-    stage('DeployArtifact') {
-      steps {
-        node('Ansible'){
-          ansiblePlaybook become: true, colorized: true, credentialsId: 'windows', disableHostKeyChecking: true, inventory: '/tmp/hosts_stable', playbook: 'deployArtifact.yaml'
-        
-        }}
-   }
-
   }
   }
