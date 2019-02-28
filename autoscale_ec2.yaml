@@ -1,4 +1,3 @@
-Auto_Scaling with Ansibel
 ---
   - name: Provision an EC2 Instance with autoscaling groups
     hosts: ansible-server
