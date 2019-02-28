@@ -12,6 +12,8 @@
     - name: delete old launch conf
       ec2_lc:
         name: new_lc
+        region: "{{ region }}"
+        vpc_id: vpc-0077079c326c44422
         state: absent
 
     - name: create Launch conf
@@ -22,9 +24,6 @@
         instance_type: "{{ instance_type }}"
         image_id: "{{ image }}"
         user_data: "{{ lookup('file','user_data.sh')}}"
-#        wait: true
-#        instace_tags:
-#           Name: dev
         region: "{{ region }}"
         instance_profile_name: s3-mybucket-role
         vpc_id: vpc-0077079c326c44422
