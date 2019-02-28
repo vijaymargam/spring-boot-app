@@ -32,7 +32,7 @@
         health_check_period: 60
         health_check_type: ELB
         wait_for_instances: yes
-        wait_timeout:100
+        wait_timeout: 100
         replace_all_instances: yes
         min_size: 2
         max_size: 5
