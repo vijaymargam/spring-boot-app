@@ -23,12 +23,12 @@
     
     - name: Touch a host file
       local_action: file
-            path=/tmp/hosts_dev
+            path=/tmp/hosts_*
             state=absent
                 
     - name: Touch a host file
       local_action: file
-                    path=/tmp/hosts_dev
+                    path=/tmp/hosts_stable
                     state=touch
                     mode="u=rw,g=r,o=r"
 
@@ -54,4 +54,4 @@
       with_items: "{{ ec2.instances }}"
       args:
         tags:
-          Name: dev
+          Name: stable
