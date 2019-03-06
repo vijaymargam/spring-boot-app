@@ -10,12 +10,17 @@ pipeline {
     stage('Build docker image') {
       steps {
       withDockerRegistry(credentialsId: 'ecr:ap-south-1:AWS_vijay', url: '358537675364.dkr.ecr.ap-south-1.amazonaws.com/springbootapplication') {
-    sh 'def custContainer = docker.build('358537675364.dkr.ecr.ap-south-1.amazonaws.com/springbootapplication:${env.BUILD_ID}')''
-    sh 'custContainer.push()''
-    sh 'custContainer.push(latest)''
+    docker.build('358537675364.dkr.ecr.ap-south-1.amazonaws.com/springbootapplication:latest')
 }
     }
     }
-  
+   stage('publish docker image to ecr') {
+      steps {
+      withDockerRegistry(credentialsId: 'ecr:ap-south-1:AWS_vijay', url: '358537675364.dkr.ecr.ap-south-1.amazonaws.com/springbootapplication') {
+    docker.image('358537675364.dkr.ecr.ap-south-1.amazonaws.com/springbootapplication:latest').push(latest)
+}
     }
     }
+     
+  }
+}
