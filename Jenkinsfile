@@ -1,8 +1,5 @@
 pipeline {
   agent any
-  tools { 
-        maven 'maven'
-  }
   stages {
     stage('Clone repository') {
         /* Let's make sure we have the repository cloned to our workspace... */
@@ -10,32 +7,20 @@ pipeline {
         checkout scm
       }
     }
-    stage('Build') {
+    stage('Build docker image') {
       steps {
-      withSonarQubeEnv('sonarqube') {
-    sh 'mvn clean test sonar:sonar package'
-      nexusPublisher nexusInstanceId: '2123', nexusRepositoryId: 'maven_spring_boot', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: '/var/lib/jenkins/workspace/project.spring.boot/spring_boot_project/target/spring-boot-aop-0.0.1-SNAPSHOT.jar']], mavenCoordinate: [artifactId: 'spring-boot-aop', groupId: 'com', packaging: 'jar', version: '0.0.1']]]
+      withDockerRegistry(credentialsId: 'ecr:ap-south-1:AWS_vijay', url: '358537675364.dkr.ecr.ap-south-1.amazonaws.com/springbootapplication') {
+    docker.build('358537675364.dkr.ecr.ap-south-1.amazonaws.com/springbootapplication:latesh')
 }
-      // sh 'mvn -B -DskipTests clean package'
-             }
     }
-    stage('CreateInstance') {
+    }
+   stage('publish docker image to ecr') {
       steps {
-        node('Ansible'){
-         checkout scm
-         ansiblePlaybook playbook: '$WORKSPACE/createInstance.yaml'
-      }
-      }}
-    stage('DeployArtifact') {
-      steps {
-        node('Ansible'){
-          withMaven(maven: 'maven') {
-          sh 'mvn clean package -DskipTests'
-          }
-       ansiblePlaybook become: true, colorized: true, credentialsId: 'windows', disableHostKeyChecking: true, inventory: '/tmp/hosts_dev', playbook: 'deployArtifact.yaml'
-        
-        }}
-   }
-
+      withDockerRegistry(credentialsId: 'ecr:ap-south-1:AWS_vijay', url: '358537675364.dkr.ecr.ap-south-1.amazonaws.com/springbootapplication') {
+    docker.image('358537675364.dkr.ecr.ap-south-1.amazonaws.com/springbootapplication:latesh').push(latest)
+}
+    }
+    }
+     
   }
 }
