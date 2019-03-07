@@ -18,7 +18,8 @@ pipeline {
    stage('publish docker image to ecr') {
       steps {
       withDockerRegistry(credentialsId: 'ecr:ap-south-1:AWS_vijay', url: '358537675364.dkr.ecr.ap-south-1.amazonaws.com/springbootapplication') {
-    docker.image('358537675364.dkr.ecr.ap-south-1.amazonaws.com/springbootapplication:latest').push(latest)
+   // docker.image('358537675364.dkr.ecr.ap-south-1.amazonaws.com/springbootapplication:latest').push(latest)
+        pushImage  name: '358537675364.dkr.ecr.ap-south-1.amazonaws.com/springbootapplcation:latest'
 }
     }
     }
