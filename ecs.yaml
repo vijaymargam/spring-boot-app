@@ -7,14 +7,14 @@
     - name: Create task definition
       ecs_taskdefinition:
         family: springboot
-        region: ap-south-1
         containers:
         - name: springBootApplication
           essential: true
           image: "358537675364.dkr.ecr.ap-south-1.amazonaws.com/springbootapplcation:latest"
           portMappings:
           - containerPort: 8080
-            hostPort:      8080
+            hostPort: 8080
+          region: ap-south-1
           cpu: 512
           memory: 1024
         state: present
