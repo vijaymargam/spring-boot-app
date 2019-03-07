@@ -24,6 +24,6 @@ pipeline {
         pushImage name: '358537675364.dkr.ecr.ap-south-1.amazonaws.com/springbootapplcation', tag: 'latest'
     }
     }
-     
+   }
   }
 }
