@@ -9,7 +9,7 @@ pipeline {
     }
     stage('Build docker image') {
       steps {
-      withDockerRegistry(credentialsId: 'ecr:ap-south-1:AWS_vijay', url: '358537675364.dkr.ecr.ap-south-1.amazonaws.com/springbootapplcation') {
+      withDockerRegistry(credentialsId: 'ecr:ap-south-1:AWS_vijay', url: 'file:///358537675364.dkr.ecr.ap-south-1.amazonaws.com/springbootapplcation') {
     //docker.build('358537675364.dkr.ecr.ap-south-1.amazonaws.com/springbootapplication:latest')
         
         buildImage name: 'spring:latest', path: '.'
@@ -19,7 +19,7 @@ pipeline {
     }
    stage('publish docker image to ecr') {
       steps {
-      withDockerRegistry(credentialsId: 'ecr:ap-south-1:AWS_vijay', url: '358537675364.dkr.ecr.ap-south-1.amazonaws.com/springbootapplcation') {
+      withDockerRegistry(credentialsId: 'ecr:ap-south-1:AWS_vijay', url: 'file:///358537675364.dkr.ecr.ap-south-1.amazonaws.com/springbootapplcation') {
    // docker.image('358537675364.dkr.ecr.ap-south-1.amazonaws.com/springbootapplication:latest').push(latest)
         pushImage  name: '358537675364.dkr.ecr.ap-south-1.amazonaws.com/springbootapplcation:latest'
 }
