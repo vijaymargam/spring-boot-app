@@ -27,5 +27,11 @@ pipeline {
     }
     }
    }
+    
+    stage("creating task definition and task for springboot cluster"){
+	steps{
+		ansiblePlaybook become: true, playbook: 'ecr_task_definition.yaml'
+	}
+}
   }
 }
