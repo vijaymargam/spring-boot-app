@@ -12,8 +12,9 @@ pipeline {
       withDockerRegistry(credentialsId: 'ecr:ap-south-1:AWS_vijay', url: 'http://358537675364.dkr.ecr.ap-south-1.amazonaws.com/springbootapplcation') {
     //docker.build('358537675364.dkr.ecr.ap-south-1.amazonaws.com/springbootapplication:latest')
         
-        buildImage name: 'spring:latest', path: '.'
+       // buildImage name: 'spring:latest', path: '.'
        // tagImage name: 'spring:latest', tag: '358537675364.dkr.ecr.ap-south-1.amazonaws.com/springbootapplcation:latest'
+        sh "docker build -t spring:latest ."
         sh "docker tag spring:latest 358537675364.dkr.ecr.ap-south-1.amazonaws.com/springbootapplcation:latest"
 }
     }
