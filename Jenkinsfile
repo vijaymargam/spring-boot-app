@@ -13,7 +13,7 @@ pipeline {
     //docker.build('358537675364.dkr.ecr.ap-south-1.amazonaws.com/springbootapplication:latest')
         
         buildImage name: 'spring:latest', path: '.'
-        tagImage name: 'spring:latest', tag: '358537675364.dkr.ecr.ap-south-1.amazonaws.com/springbootapplcation'
+        tagImage name: 'spring:latest', tag: '358537675364.dkr.ecr.ap-south-1.amazonaws.com/springbootapplcation:latest'
 }
     }
     }
