@@ -16,8 +16,7 @@
             hostPort: 8080
           cpu: 512
           memory: 1024
-          region: ap-south-1
-        state: present
+          state: present
     - name: create task for cluster
       ecs_task:
         operation: run
