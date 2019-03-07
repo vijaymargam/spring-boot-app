@@ -14,9 +14,9 @@
           portMappings:
           - containerPort: 8080
             hostPort: 8080
-          region: ap-south-1
           cpu: 512
           memory: 1024
+          region: ap-south-1
         state: present
     - name: create task for cluster
       ecs_task:
