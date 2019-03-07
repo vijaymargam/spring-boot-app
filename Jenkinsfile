@@ -10,7 +10,8 @@ pipeline {
     stage('Build docker image') {
       steps {
       withDockerRegistry(credentialsId: 'ecr:ap-south-1:AWS_vijay', url: '358537675364.dkr.ecr.ap-south-1.amazonaws.com/springbootapplication') {
-    docker.build('358537675364.dkr.ecr.ap-south-1.amazonaws.com/springbootapplication:latest')
+    //docker.build('358537675364.dkr.ecr.ap-south-1.amazonaws.com/springbootapplication:latest')
+        buildImage name: '358537675364.dkr.ecr.ap-south-1.amazonaws.com/springbootapplcation:latest', path: '.'
 }
     }
     }
